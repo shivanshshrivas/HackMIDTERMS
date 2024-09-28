@@ -2,6 +2,7 @@
 import Image from "next/image";
 import VideoCall from "@/components/Videocall"
 import { useRouter } from "next/navigation";
+import Login from "./login/page";
 export default function Home() {
   const router = useRouter();
 
@@ -15,9 +16,10 @@ export default function Home() {
   };
 
   return (
-    <main>
-      <h1>Start a Video Call</h1>
-      <button onClick={handleStartCall}>Start Call</button>
-    </main>
+    // <main>
+    //   <h1>Start a Video Call</h1>
+    //   <button onClick={handleStartCall}>Start Call</button>
+    // </main>
+    <Login />
   );
 }

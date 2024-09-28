@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import './page-button.css';
+import '@/app/globals.css';
 export default function PageButton(props) {
     
     return(
