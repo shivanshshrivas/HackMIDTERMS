@@ -14,11 +14,11 @@ Ensure you have reviewed the [Rules & FAQ](https://hackmidwest.com/#faq)
 ## Who's on your team?
 *List the full names,  email address & Github username of your teammates*
 
-1.   **Full Name**  || **fullname@company.com**  (or fullname@school.edu if you're a CS student) || **Github Username**
-2. 
-3.
-4.
-5.
+1. Tej Gumaste || tej.gumaste@ku.edu || Vegito2367
+2. Manish Singh || manish.singh@ku.edu || manees-singh
+3. Shivansh Shrivas || shivansh@ku.edu || shivanshshrivas
+4. Ansuman Sharma || ansuman@ku.edu || an-siuu-man
+5. Achinth Ulagapperoli || achinthu@ku.edu || achinth04
 
 <br /><br />
 
