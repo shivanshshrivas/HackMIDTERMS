@@ -21,7 +21,7 @@ export default function Login() {
     };
 
     const getLabelClass = (inputValue) => {
-        return inputValue ? 'label-focus' : '';
+        return inputValue ? '-focus' : '';
     };
 
     return (
@@ -45,7 +45,7 @@ export default function Login() {
                                 value={username} 
                                 onChange={handleInputChange} 
                             />
-                            <label className={`username-label ${getLabelClass(username)}`}>
+                            <label className={`username-label${getLabelClass(username)}`}>
                                 Username
                             </label>
                         </div>
@@ -57,7 +57,7 @@ export default function Login() {
                                 value={password} 
                                 onChange={handleInputChange} 
                             />
-                            <label className={`password-label ${getLabelClass(password)}`}>
+                            <label className={`password-label${getLabelClass(password)}`}>
                                 Password
                             </label>
                         </div>
