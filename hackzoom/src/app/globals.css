@@ -5,6 +5,7 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --primary-animation-color: black;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -23,5 +24,114 @@ body {
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+}
+
+.page-button button {
+  text-align: center;
+  color: white;
+  font-family: 'Inter Tight';
+  font-size: 20px;
+  font-weight: 500;
+  height: auto;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  background-color: #848eeb;
+  cursor: pointer;
+  margin: 5px 0;
+  transition: all 0.2s ease;
+}
+
+.page-button button:hover {
+  background-color: #6c74d8;
+}
+
+
+.login {
+  display: flex;
+  width: fit-content; /* Changed to fill the width of the page */
+  margin: 0 auto;
+  padding: 50px;
+}
+
+.login-left-pane {
+  background-color: aquamarine;
+  width: 50%;
+  padding: 0 50px;
+  border: 3cap solid transparent;
+  animation: border-animation 2s infinite;
+}
+
+.login-right-pane {
+  width: 50%;
+  padding: 0 50px;
+}
+
+.login h1 {
+  font-family: 'Playfair Display';
+  font-size: 3rem;
+}
+
+.login form {
+  display: block;
+}
+
+.login label {
+  font-family: 'Inter Tight';
+  font-size: 1.3rem;
+  position:absolute;
+  padding: 5px 0;
+  transform: translateY(-55px);
+  transition: all 0.2s ease-in-out;
+}
+
+.login input {
+  display: block;
+  font-family: 'Inter Tight';
+  font-size: large;
+  width: 300px;
+  padding:0 0 5px 0;
+  margin: 0 0 20px 0;
+  border: 2px solid transparent;
+  border-radius: 2px;
+  border-bottom-color: black;
+  transition: all 0.2s ease-in-out;
+}
+
+.login input:focus {
+  border-collapse: none;
+  border-bottom-color: #1e90ff;
+  outline: none; /* Added to remove the default blue border */
+}
+
+.username-input:focus + .username-label, .password-input:focus + .password-label, .label-focus{
+  transform: translateY(-70px);
+  color: #1e90ff; /* DodgerBlue */
+  font-size: 1rem;
+}
+
+.login button {
+  font-size: 15px;
+  height: 40px;
+  width: 100%;
+}
+
+
+@keyframes border-animation {
+  0% {
+      /* border-color: transparent; */
+      border-bottom-color: var(--primary-animation-color);
+  }
+  33% {
+      border-left-color: var(--primary-animation-color);
+  }
+
+  67% {
+      border-top-color: var(--primary-animation-color);
+  }
+  100% {
+      border-right-color: var(--primary-animation-color);
   }
 }
