@@ -1,25 +1,16 @@
-"use client"
-import Image from "next/image";
-import VideoCall from "@/components/Videocall"
-import { useRouter } from "next/navigation";
-import Login from "./login/page";
-export default function Home() {
-  const router = useRouter();
+"use client";
+import ButtonsContainer from "@/components/ButtonsContainer";
+import { useEffect, useState } from "react";
 
-  const generateSlug = () => {
-    return Math.random().toString(36).substring(2, 10);  // Generate a random slug
-  };
-
-  const handleStartCall = () => {
-    const slug = generateSlug();  // Generate slug
-    router.push(`/call/${slug}`); // Navigate to the call/[slug] route
-  };
+export default function Page() {
 
   return (
-    // <main>
-    //   <h1>Start a Video Call</h1>
-    //   <button onClick={handleStartCall}>Start Call</button>
-    // </main>
-    <Login />
+    <div>
+      <ButtonsContainer />
+      <h1 style={{ 'text-align': 'center' }}>Welcome to <b style={{'color':'#E57373'}}>HackMidTERMS</b>, your on-the-go lecture companion and testing partner!</h1>
+      <p style={{ 'text-align': 'center', 'fontFamily': 'Inter Tight', 'fontSize': '2rem', 'color': '#3f3f3f' }}>
+        This app helps students test themselves while watching their lectures by providing interactive quizzes and flashcards that can be accessed anytime, anywhere.
+      </p>
+    </div>
   );
 }

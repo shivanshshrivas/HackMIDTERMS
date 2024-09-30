@@ -19,16 +19,34 @@
 } */
 
 body {
+  overflow: hidden;
   color: var(--foreground);
+
+  width: 100vw;
   /* background: var(--background); */
   background-color: #87ceeb; /* LightSkyBlue */
   /* font-family: Arial, Helvetica, sans-serif; */
 }
 
+h1 {
+  font-family: 'Playfair Display';
+  font-weight: 500;
+  font-size: 3rem;
+  margin-bottom: 5px;
+}
+
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+.home-button-container {
+  display: flex;
+  width: 95%;
+  justify-content: right;
+  gap: 5px; 
 }
 
 .page-button button {
@@ -52,8 +70,7 @@ body {
   background-color: #00008b;
 }
 
-
-.login {
+.login, .signup {
   display: flex;
   width: 85%;
   margin: 0 auto;
@@ -65,7 +82,6 @@ body {
   width: 50%;
   /* padding: 0 50px; */
   /* border: 3cap solid transparent; */
-  animation: border-animation 2s infinite;
 }
 
 .login-right-pane {
@@ -77,19 +93,20 @@ body {
   padding: 0 50px;
 }
 
-.login h1 {
+.login h1, .signup h1 {
   font-family: 'Playfair Display';
   font-weight: 500;
   font-size: 3rem;
   margin-bottom: 5px;
 }
 
-.login form {
+.login form, .signup form {
   display: block;
 }
 
-.username-label, .password-label {
+.username-label, .password-label, .signup-username-label, .signup-password-label, .signup-email-label, .signup-confirm-password-label {
   font-family: 'Inter Tight';
+  color: grey;
   font-size: 1.3rem;
   position:absolute;
   padding: 5px 0;
@@ -97,7 +114,7 @@ body {
   transition: all 0.2s ease-in-out;
 }
 
-.login input {
+.login input, .signup input {
   background-color: transparent;
   display: block;
   font-family: 'Inter Tight';
@@ -111,19 +128,19 @@ body {
   transition: all 0.2s ease-in-out;
 }
 
-.login input:focus {
+.login input:focus, .signup input:focus {
   border-bottom-color: #6c74d8; /* DarkBlue */
   outline: none; /* Added to remove the default blue border */
 }
 
-.username-input:focus + .username-label, .password-input:focus + .password-label{
+.username-input:focus + .username-label, .password-input:focus + .password-label, .signup-username-input:focus + .signup-username-label, .signup-password-input:focus + .signup-password-label, .signup-email-input:focus + .signup-email-label, .signup-confirm-password-input:focus + .signup-confirm-password-label {
   
   transform: translateY(-75px);
   color: #6c74d8; /* DodgerBlue */
   font-size: 1rem;
 }
 
-.username-label-focus, .password-label-focus {
+.username-label-focus, .password-label-focus, .signup-username-label-focus, .signup-password-label-focus, .signup-email-label-focus, .signup-confirm-password-label-focus {
   
   font-family: 'Inter Tight';
   font-size: 1.3rem;
@@ -135,7 +152,7 @@ body {
 }
 
 
-.login button {
+.login button, .signup button {
   font-size: 1.5rem;
   height: auto;
   width: 100%;
@@ -147,6 +164,128 @@ body {
   justify-content: end;
   gap: 10px; /* Adjust the value as needed for desired spacing */
 }
+
+.login-home-button-container {
+  display: flex;
+  justify-content: right;
+  align-items: last baseline;
+}
+
+.login-home-button-container button {
+  background-color: red;
+}
+
+.login-home-button-container button:hover {
+  background-color: darkred;
+}
+
+.dashboard-container {
+  display: flex;
+  justify-self: center;
+  align-items: baseline;
+  width: 100%;
+}
+
+.dashboard {
+  width: 80%;
+}
+
+.dashboard-title {
+  font-family: 'Playfair Display';
+  font-weight: 700;
+  font-size: 2.5rem;
+  color: var(--foreground);
+  margin-bottom: 10px;
+}
+
+.dashboard-subtitle {
+  font-family: 'Inter Tight';
+  font-weight: 400;
+  font-size: 1.5rem;
+  color: grey;
+  margin-bottom: 20px;
+}
+
+.dashboard-button-container {
+  display: flex;
+  justify-content: end;
+  gap: 10px; /* Adjust the value as needed for desired spacing */
+}
+
+
+.loading-message {
+  font-family: 'Inter Tight';
+  font-size: 1.2rem;
+  color: #6c74d8; /* DodgerBlue */
+  margin-bottom: 20px;
+}
+
+.error-message {
+  font-family: 'Inter Tight';
+  font-size: 1.2rem;
+  color: red;
+  margin-bottom: 20px;
+}
+
+.no-data-message {
+  font-family: 'Inter Tight';
+  font-size: 1.2rem;
+  color: grey;
+  margin-bottom: 5px;
+}
+
+.file-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.flashcard {
+  perspective: 1000px;
+  width: 300px;
+  height: 200px;
+  margin: 20px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.flashcard-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+
+.flashcard.flipped .flashcard-inner {
+  transform: rotateY(180deg);
+}
+
+.flashcard-front, .flashcard-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Inter Tight';
+  font-size: 1.5rem;
+  color: var(--foreground);
+  background-color: var(--background);
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.flashcard-back {
+  transform: rotateY(180deg);
+}
+
+.flashcard-container {
+  display: flex;
+}
+
 
 @keyframes border-animation {
   0% {

@@ -5,7 +5,7 @@ export default function PageButton(props) {
     
     return(
         <div className='page-button'>
-            <button>{props.label}</button>
+            <button onClick={props.handleClick} >{props.label}</button>
         </div>
     );
 
