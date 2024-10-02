@@ -7,19 +7,24 @@ import { auth, db } from '../firebase';
 import { useRouter } from 'next/navigation';
 import { doc, setDoc } from 'firebase/firestore';
 import axios from 'axios';
-import ButtonsContainer from '@/components/ButtonsContainer';
+import Loading from '@/components/Loading';
 
 require('dotenv').config();
 
-const pinataData = {
-    pinata_api_key: process.env.NEXT_PUBLIC_PINATA_API_KEY,
-    pinata_secret_api_key: process.env.NEXT_PUBLIC_PINATA_SECRET_API_KEY
-};
 
 const pinata_api_key = process.env.NEXT_PUBLIC_PINATA_API_KEY;
 const pinata_secret_api_key = process.env.NEXT_PUBLIC_PINATA_SECRET_API_KEY;
 
 export default function Login() {
+
+    useEffect(() => {
+        document.querySelector('body').style.overflowY = 'hidden';
+        return () => {
+            document.querySelector('body').style.overflowY = 'auto';
+        };
+    }, []);
+
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
@@ -126,6 +131,9 @@ export default function Login() {
         });
     };
 
+
+
+
     const scrollToTop = () => {
         window.scrollTo({
             top: 0,
@@ -143,22 +151,34 @@ export default function Login() {
         scrollToTop();
     };
 
+    const handleHome = (e) => {
+        e.preventDefault();
+        router.push('/');
+    };
     // Show a loading screen while checking for authentication state
     if (loading) {
-        return <div>Loading...</div>;
+        setTimeout(2000);
+        return <Loading show = {loading} />;
     }
 
     return (
+        <div className='login-signup-container'>
         <div className='login-signup'>
+            {/* <Loading show={true} />   */}
+            <div className='home-button-container'>
+                                <PageButton label="Home" handleClick={(e) => handleHome(e)} />
+                        </div>
             <div className='login'>
+                
                 <div className='login-left-pane'>
-                    <video loop autoPlay={true} width="auto">
+                    <video loop autoPlay={true} width='auto'>
                         <source src="/loginPageVid.mp4" type="video/mp4" />
                         Your browser does not support the video tag.
                     </video>
                 </div>
                 <div className='login-right-pane'>
                     <div style={{ 'display': 'block', 'width': '100%' }}>
+
                         <h1>Login</h1>
                         <form className='login-form' onSubmit={handleLogin}>
                             <div className='input-group'>
@@ -189,9 +209,7 @@ export default function Login() {
                                 <PageButton label='Login' />
                                 <PageButton label='Sign Up' handleClick={handleSignUpClick} />
                             </div>
-                            <div className='login-home-button-container'>
-                                <PageButton label="Home" handleClick={() => router.push('/')} />
-                            </div>
+
                             {error && <p>{error}</p>}
                         </form>
                     </div>
@@ -268,6 +286,7 @@ export default function Login() {
                     </div>
                 </div>
             </div>
+        </div>
         </div>
     );
 }

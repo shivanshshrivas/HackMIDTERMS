@@ -8,6 +8,7 @@ import { onAuthStateChanged, signOut} from 'firebase/auth';
 import Link from 'next/link';
 import PageButton from '@/components/PageButton';
 import Flashcard from '@/components/Flashcard';
+import Loading from '@/components/Loading';
 
 require('dotenv').config();
 
@@ -116,8 +117,11 @@ export default function Page() {
     const handleLogout = async () => {
         try {
             // Sign the user out using Firebase auth
+            setIsUserLoading(true);
+            await new Promise(resolve => setTimeout(resolve, 1000));
             await signOut(auth);
-            // Redirect the user to the login page
+            setIsUserLoading(false);
+            // Redirect the user to the home page
             router.push('/');
         } catch (error) {
             console.error('Error during sign out:', error);
@@ -128,27 +132,28 @@ export default function Page() {
 
     return (
         <div className="dashboard-container">
+
             <div className="dashboard">
-                <h1 className="dashboard-title">Your Dashboard</h1>
-                <h2 className="dashboard-subtitle">Your Pinned Questions and Answers</h2>
-
-                {isUserLoading && <p className="loading-message">Checking user authentication...</p>}
-                {loading && <p className="loading-message">Loading files...</p>}
+                <div className='dashboard-header'>
+                    <h1 className="dashboard-title">Your Dashboard</h1>
+                    
+                    <div className="home-button-container" >
+                        <PageButton className="logout-button" label="Logout" handleClick={handleLogout} />
+                        <PageButton className="home-button" label="Home" handleClick = {() => router.push('/')} />
+                    </div>
+                </div>
+                
+                {loading && <Loading show={loading}/>}
+                {loading && <p className="loading-message">Loading pinned questions...</p>}
                 {error && <p className="error-message">{error}</p>}
-
+                {isUserLoading && <Loading show={isUserLoading}/>}
                 {!loading && fileContents.length === 0 && <p className="no-data-message">No questions or answers found.</p>}
-
                 <ul className="flashcard-container">
                     {fileContents.map((file, index) => (
                             <Flashcard key={index} question={file.question} answer={file.answer} />
                     ))}
                 </ul>
-                <div className="dashboard-button-container">
-                    <PageButton className="logout-button" label="Logout" handleClick={handleLogout} />
-                    <Link href="/">
-                        <PageButton className="home-button" label="Home" />
-                    </Link>
-                </div>
+                
             </div>
         </div>
     );

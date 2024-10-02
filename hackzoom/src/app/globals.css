@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 
 @tailwind base;
@@ -22,11 +23,24 @@ body {
   /* overflow: hidden; */
   color: var(--foreground);
 
-  width: 100vw;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  min-width: 640px; /* Set a minimum resize width */
   /* background: var(--background); */
   background-color: #87ceeb; /* LightSkyBlue */
-  /* font-family: Arial, Helvetica, sans-serif; */
+  transition: all 0.5s ease;
+
 }
+
+.page-transition {
+  opacity: 0;
+  transform: translateY(20px);
+  background-color: #87ceeb; /* LightSkyBlue */
+  backdrop-filter: blur(10px);
+}
+
+
 
 h1 {
   font-family: 'Playfair Display';
@@ -42,11 +56,19 @@ h1 {
   }
 }
 
+.homepage {
+  width: 85%;
+}
+
+
+
 .home-button-container {
   display: flex;
-  width: 95%;
+  margin-left: auto;
+  flex-wrap: wrap;
   justify-content: right;
-  gap: 5px; 
+  gap: 2px;
+  padding: 10px;
 }
 
 .page-button button {
@@ -62,7 +84,7 @@ h1 {
   box-shadow: none;
   background-color: #848eeb;
   cursor: pointer;
-  margin: 5px 10px;
+  margin: 5px;
   transition: all 0.2s ease;
 }
 
@@ -70,23 +92,43 @@ h1 {
   background-color: #00008b;
 }
 
+.login-signup-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* height: 100vh; */
+  width: 100%;
+}
+
+.login-signup {
+  width: 85%;
+}
+
 .login, .signup {
   display: flex;
-  width: 85%;
+  /* width: 85%; */
+  flex-wrap: wrap;
+  height: 85%;
   margin: 0 auto;
   padding: 50px;
+  transition: all 0.5s ease;
+}
+
+video {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
 }
 
 .login-left-pane {
   background-color: aquamarine;
   width: 50%;
-  /* padding: 0 50px; */
-  /* border: 3cap solid transparent; */
+
 }
 
 .login-right-pane {
   display: flex;
-  align-items: center;
+  align-items:center;
   justify-content: center;
   background-color: white;
   width: 50%;
@@ -131,6 +173,32 @@ h1 {
 .login input:focus, .signup input:focus {
   border-bottom-color: #6c74d8; /* DarkBlue */
   outline: none; /* Added to remove the default blue border */
+}
+
+.loading {
+  top: 48.5%;
+  left: 48.5%;
+  position: absolute;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  border: 5px solid transparent;
+  z-index: 999;
+  /* border-top-color: #6c74d8; DodgerBlue */
+  border-bottom-color: #d86c6c;
+  border-top-color: #d86c6c;
+  border-left-color: #d86c6c; 
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0%{
+      transform: rotate(0deg);
+  }
+
+  100%{
+      transform: rotate(360deg); 
+  }
 }
 
 .username-input:focus + .username-label, .password-input:focus + .password-label, .signup-username-input:focus + .signup-username-label, .signup-password-input:focus + .signup-password-label, .signup-email-input:focus + .signup-email-label, .signup-confirm-password-input:focus + .signup-confirm-password-label {
@@ -181,21 +249,28 @@ h1 {
 
 .dashboard-container {
   display: flex;
-  justify-self: center;
-  align-items: baseline;
+  justify-content: center;
+  align-items: first baseline;
   width: 100%;
 }
 
 .dashboard {
-  width: 100%;
-}
+  width: 85%;
 
+}
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  /* align-items: center; */
+  margin-bottom: 20px;
+}
 .dashboard-title {
   font-family: 'Playfair Display';
   font-weight: 700;
   font-size: 2.5rem;
   color: var(--foreground);
   margin-bottom: 10px;
+  padding: 10px;
 }
 
 .dashboard-subtitle {
@@ -203,7 +278,8 @@ h1 {
   font-weight: 400;
   font-size: 1.5rem;
   color: grey;
-  margin-bottom: 20px;
+  /* margin-bottom: 20px; */
+  padding: 10px;
 }
 
 .dashboard-button-container {
@@ -214,8 +290,10 @@ h1 {
 
 
 .loading-message {
+  width: 100%;
+  text-align: center;
   font-family: 'Inter Tight';
-  font-size: 1.2rem;
+  font-size: 3rem;
   color: #6c74d8; /* DodgerBlue */
   margin-bottom: 20px;
 }
@@ -276,17 +354,18 @@ h1 {
   color: white;
   background-color: tomato;
   padding: 10px;
-  /* border: 1px solid #ddd; */
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
 }
 
 .flashcard-back {
   transform: rotateY(180deg);
+  background-color: #2e8b57; /* SeaGreen */
 }
 
 .flashcard-container {
   display: flex;
+  width: 100%;
   flex-wrap: wrap;
   justify-content: center;
 }
