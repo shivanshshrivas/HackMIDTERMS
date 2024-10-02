@@ -12,12 +12,12 @@ import ButtonsContainer from '@/components/ButtonsContainer';
 require('dotenv').config();
 
 const pinataData = {
-    pinata_api_key: process.env.PINATA_API_KEY,
-    pinata_secret_api_key: process.env.PINATA_SECRET_API_KEY
+    pinata_api_key: process.env.NEXT_PUBLIC_PINATA_API_KEY,
+    pinata_secret_api_key: process.env.NEXT_PUBLIC_PINATA_SECRET_API_KEY
 };
 
-const pinata_api_key = '79599b71c1de011c35dc';
-const pinata_secret_api_key = `a596eff5c702f93b055ea5d41a9d8907d11582c596854deea1161782ff109d2c`;
+const pinata_api_key = process.env.NEXT_PUBLIC_PINATA_API_KEY;
+const pinata_secret_api_key = process.env.NEXT_PUBLIC_PINATA_SECRET_API_KEY;
 
 export default function Login() {
     const [email, setEmail] = useState('');

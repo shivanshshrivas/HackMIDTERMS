@@ -9,12 +9,15 @@ import Link from 'next/link';
 import PageButton from '@/components/PageButton';
 import Flashcard from '@/components/Flashcard';
 
-
+require('dotenv').config();
 
 export default function Page() {
 
-    const pinata_api_key = '79599b71c1de011c35dc';
-    const pinata_secret_api_key = `a596eff5c702f93b055ea5d41a9d8907d11582c596854deea1161782ff109d2c`;
+
+    const pinataData = {
+        pinata_api_key: process.env.NEXT_PUBLIC_PINATA_API_KEY,
+        pinata_secret_api_key: process.env.NEXT_PUBLIC_PINATA_SECRET_API_KEY
+    };
 
     // State to store the file contents fetched from Pinata
     const [fileContents, setFileContents] = useState([]);
@@ -49,8 +52,8 @@ export default function Page() {
                     method: 'GET',
                     url: `https://api.pinata.cloud/data/pinList?groupId=${groupId}`,
                     headers: {
-                        pinata_api_key: pinata_api_key,
-                        pinata_secret_api_key: pinata_secret_api_key,
+                        pinata_api_key: pinataData.pinata_api_key,
+                        pinata_secret_api_key: pinataData.pinata_secret_api_key,
                         'Content-Type': 'application/json'
                     },
                 };
