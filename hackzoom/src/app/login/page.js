@@ -125,10 +125,14 @@ export default function Login() {
     };
 
     const scrollToBottom = () => {
-        window.scrollTo({
-            top: document.documentElement.scrollHeight,
-            behavior: 'smooth'
-        });
+        const signupElement = document.querySelector('.signup');
+        if (signupElement) {
+            const offsetTop = signupElement.offsetTop;
+            window.scrollTo({
+                top: offsetTop - 10,
+                behavior: 'smooth'
+            });
+        }
     };
 
 
@@ -153,7 +157,20 @@ export default function Login() {
 
     const handleHome = (e) => {
         e.preventDefault();
-        router.push('/');
+            const body = document.querySelector('body');
+            body.style.backgroundColor = '#000'; // Change background color to desired color
+            body.style.color = 'white'; // Change text color to desired color
+            body.style.backdropFilter = 'blur(20px)'; // Add backdrop filter for a blur effect
+            body.style.opacity = '0';
+            body.style.transform = 'translateY(20px)'; // Add a transition effect for the body
+            new Promise(resolve => setTimeout(resolve, 300)).then(() => {
+              router.push('/');
+              body.style.backgroundColor = ''; // Reset background color after navigation
+              body.style.backdropFilter = ''; // Reset backdrop filter after navigation
+              body.style.color = ''; // Reset text color after navigation
+              body.style.transform = ''; // Reset transform after navigation
+              body.style.opacity = '1'; // Reset opacity after navigation
+            });
     };
     // Show a loading screen while checking for authentication state
     if (loading) {

@@ -130,6 +130,23 @@ export default function Page() {
         }
     };
 
+    const handleHome = (e) => {
+        e.preventDefault();
+            const body = document.querySelector('body');
+            body.style.backgroundColor = '#000'; // Change background color to desired color
+            body.style.color = 'white'; // Change text color to desired color
+            body.style.backdropFilter = 'blur(20px)'; // Add backdrop filter for a blur effect
+            body.style.opacity = '0';
+            body.style.transform = 'translateY(20px)'; // Add a transition effect for the body
+            new Promise(resolve => setTimeout(resolve, 300)).then(() => {
+              router.push('/');
+              body.style.backgroundColor = ''; // Reset background color after navigation
+              body.style.backdropFilter = ''; // Reset backdrop filter after navigation
+              body.style.color = ''; // Reset text color after navigation
+              body.style.transform = ''; // Reset transform after navigation
+              body.style.opacity = '1'; // Reset opacity after navigation
+            });
+    };
     return (
         <div className="dashboard-container">
 
@@ -139,7 +156,7 @@ export default function Page() {
                     
                     <div className="home-button-container" >
                         <PageButton className="logout-button" label="Logout" handleClick={handleLogout} />
-                        <PageButton className="home-button" label="Home" handleClick = {() => router.push('/')} />
+                        <PageButton className="home-button" label="Home" handleClick = {(e) => handleHome(e)} />
                     </div>
                 </div>
                 

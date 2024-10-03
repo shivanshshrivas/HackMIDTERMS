@@ -2,7 +2,6 @@
 import PageButton from "@/components/PageButton";
 import { auth } from "../app/firebase";
 import { useRouter } from "next/navigation";
-
 export default function Page() {
 
 
@@ -10,11 +9,20 @@ export default function Page() {
   const handleRoute = (route, event) => {
     event.preventDefault();
     const body = document.querySelector('body');
-    body.classList.add('page-transition');
-    new Promise(resolve => setTimeout(resolve, 600))
-    router.push(route);
-    new Promise(resolve => setTimeout(resolve, 600))
-    body.classList.remove('page-transition');
+    body.style.backgroundColor = '#000'; // Change background color to desired color
+    body.style.color = 'white'; // Change text color to desired color
+    body.style.backdropFilter = 'blur(20px)'; // Add backdrop filter for a blur effect
+    body.style.opacity = '0';
+    body.style.transform = 'translateY(20px)'; // Add a transition effect for the body
+    new Promise(resolve => setTimeout(resolve, 300)).then(() => {
+      router.push(route);
+      body.style.backgroundColor = ''; // Reset background color after navigation
+      body.style.backdropFilter = ''; // Reset backdrop filter after navigation
+      body.style.color = ''; // Reset text color after navigation
+      body.style.transform = ''; // Reset transform after navigation
+      body.style.opacity = '1'; // Reset opacity after navigation
+    });
+
   };
 
   return (

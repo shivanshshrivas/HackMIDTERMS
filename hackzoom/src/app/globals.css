@@ -106,11 +106,11 @@ h1 {
 
 .login, .signup {
   display: flex;
-  /* width: 85%; */
+  width: 100%;
   flex-wrap: wrap;
-  height: 85%;
   margin: 0 auto;
-  padding: 50px;
+  padding: 10px;
+  margin: 0 0 10% 0;
   transition: all 0.5s ease;
 }
 
@@ -179,15 +179,16 @@ video {
   top: 48.5%;
   left: 48.5%;
   position: absolute;
+  margin:0 auto;
   border-radius: 50%;
   width: 60px;
   height: 60px;
   border: 5px solid transparent;
   z-index: 999;
   /* border-top-color: #6c74d8; DodgerBlue */
-  border-bottom-color: #d86c6c;
-  border-top-color: #d86c6c;
-  border-left-color: #d86c6c; 
+  border-bottom-color: #ff00ff; /* Magenta */
+  border-top-color: #ff00ff; /* Magenta */
+  border-left-color: #ff00ff; /* Magenta */
   animation: spin 1s linear infinite;
 }
 
