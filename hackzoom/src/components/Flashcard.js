@@ -14,7 +14,9 @@ export default function Flashcard(props) {
         <div className={`flashcard ${flipped ? 'flipped' : ''}`} onClick={handleFlip}>
             <div className="flashcard-inner">
                 <div className="flashcard-front">
-                    <b>Question:</b>{props.question}
+                    <b>Question:</b>
+                    <br />
+                    {props.question}
                 </div>
                 <div className="flashcard-back">
                     <b>Answer:</b>{props.answer}

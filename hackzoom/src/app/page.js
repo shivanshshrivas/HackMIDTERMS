@@ -9,11 +9,11 @@ export default function Page() {
   const handleRoute = (route, event) => {
     event.preventDefault();
     const body = document.querySelector('body');
-    body.style.backgroundColor = '#000'; // Change background color to desired color
+    body.style.backgroundColor = '#fff'; // Change background color to desired color
     body.style.color = 'white'; // Change text color to desired color
     body.style.backdropFilter = 'blur(20px)'; // Add backdrop filter for a blur effect
     body.style.opacity = '0';
-    body.style.transform = 'translateY(20px)'; // Add a transition effect for the body
+    body.style.transform = 'translateY(40px)'; // Add a transition effect for the body
     new Promise(resolve => setTimeout(resolve, 300)).then(() => {
       router.push(route);
       body.style.backgroundColor = ''; // Reset background color after navigation
