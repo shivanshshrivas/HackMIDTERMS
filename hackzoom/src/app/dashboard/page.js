@@ -4,17 +4,13 @@ import { useRouter } from 'next/navigation';
 import { auth, db } from '../firebase';
 import { doc, getDoc } from 'firebase/firestore';
 import axios from 'axios';
-import { onAuthStateChanged, signOut} from 'firebase/auth';
-import Link from 'next/link';
+import { onAuthStateChanged, signOut } from 'firebase/auth';
 import PageButton from '@/components/PageButton';
 import Flashcard from '@/components/Flashcard';
 import Loading from '@/components/Loading';
 
-require('dotenv').config();
-
+// Ensure environment variables are accessible (Remove require('dotenv').config())
 export default function Page() {
-
-
     const pinataData = {
         pinata_api_key: process.env.NEXT_PUBLIC_PINATA_API_KEY,
         pinata_secret_api_key: process.env.NEXT_PUBLIC_PINATA_SECRET_API_KEY
@@ -32,11 +28,8 @@ export default function Page() {
     // Initialize the Next.js router for redirection
     const router = useRouter();
 
-    let temp 
-
     // useEffect hook to handle fetching files when the component mounts
     useEffect(() => {
-        // Function to fetch files from Pinata for the authenticated user
         const fetchFiles = async (user) => {
             if (!user) {
                 // If no user is logged in, set an error message and stop loading
@@ -53,11 +46,12 @@ export default function Page() {
                 // Prepare the query to fetch files from Pinata's API for the specific group
                 const options = {
                     method: 'GET',
-                    url: `https://api.pinata.cloud/data/pinList?groupId=${groupId}`,
+                    url: `https://api.pinata.cloud/data/pinList?groupId=${groupId}&status=pinned`,
                     headers: {
                         pinata_api_key: pinataData.pinata_api_key,
                         pinata_secret_api_key: pinataData.pinata_secret_api_key,
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json',
+                        'Content-Cache': 'no-cache'
                     },
                 };
 
@@ -101,6 +95,7 @@ export default function Page() {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
             if (user) {
                 // User is signed in, fetch the files
+                setLoading(true); // Trigger loading state
                 fetchFiles(user);
             } else {
                 // No user is signed in
@@ -113,7 +108,7 @@ export default function Page() {
 
         // Clean up the listener on component unmount
         return () => unsubscribe();
-    }, []);
+    }, [router]); // Add `router` as a dependency to trigger when page changes
 
     // Function to handle user logout
     const handleLogout = async () => {
@@ -135,49 +130,32 @@ export default function Page() {
     const handleHome = (e) => {
         e.preventDefault();
         router.push('/');
-            // const body = document.querySelector('body');
-            // body.style.backgroundColor = '#fff'; // Change background color to desired color
-            // body.style.color = 'white'; // Change text color to desired color
-            // body.style.backdropFilter = 'blur(20px)'; // Add backdrop filter for a blur effect
-            // body.style.opacity = '0';
-            // body.style.transform = 'translateY(40px)'; // Add a transition effect for the body
-            // new Promise(resolve => setTimeout(resolve, 300)).then(() => {
-            //   router.push('/');
-            //   body.style.backgroundColor = ''; // Reset background color after navigation
-            //   body.style.backdropFilter = ''; // Reset backdrop filter after navigation
-            //   body.style.color = ''; // Reset text color after navigation
-            //   body.style.transform = ''; // Reset transform after navigation
-            //   body.style.opacity = '1'; // Reset opacity after navigation
-            // });
     };
+
     return (
         <div className="dashboard-container">
-
             <div className="dashboard">
                 <div className='dashboard-header'>
                     <h1 className="dashboard-title">Your Dashboard</h1>
-                    
-                    <div className="home-button-container" >
-                        <PageButton className="home-button" label="Home" handleClick = {(e) => handleHome(e)} />
-                        <PageButton className="add-button" label="Upload Video" handleClick = {() => router.push('/upload')} />
+
+                    <div className="home-button-container">
+                        <PageButton className="home-button" label="Home" handleClick={(e) => handleHome(e)} />
+                        <PageButton className="add-button" label="Upload Video" handleClick={() => router.push('/upload')} />
                         <PageButton className="logout-button" label="Logout" handleClick={handleLogout} />
-                        
-                            
                     </div>
                 </div>
-                
-                {loading && <Loading show={loading}/>}
+
+                {isUserLoading && <Loading show={isUserLoading} />}
+                {loading && <Loading show={loading} />}
                 {loading && <p className="loading-message">Loading pinned questions...</p>}
                 {error && <p className="error-message">{error}</p>}
-                {isUserLoading && <Loading show={isUserLoading}/>}
                 {!loading && fileContents.length === 0 && <p className="no-data-message">No questions or answers found.</p>}
                 <ul className="flashcard-container">
                     {fileContents.map((file, index) => (
-                            <Flashcard key={index} question={file.question} answer={file.answer} cid = {file.cid} />
+                        <Flashcard key={index} question={file.question} answer={file.answer} cid={file.cid} />
                     ))}
                 </ul>
-                
             </div>
         </div>
     );
-};
+}
