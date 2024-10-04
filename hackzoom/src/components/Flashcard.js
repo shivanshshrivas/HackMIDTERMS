@@ -2,6 +2,9 @@
 
 import React, { useState } from 'react';
 import '@/app/globals.css';
+import axios from 'axios';
+import { useRouter } from 'next/navigation';
+require('dotenv').config();
 
 export default function Flashcard(props) {
     const [flipped, setFlipped] = useState(false);
@@ -9,6 +12,21 @@ export default function Flashcard(props) {
     const handleFlip = () => {
         setFlipped(!flipped);
     };
+
+    const handleDelete = async (cid) => {
+        const options = {
+            method: 'DELETE',
+            url: `https://api.pinata.cloud/pinning/unpin/${cid}`,
+            headers: {
+                pinata_api_key: process.env.NEXT_PUBLIC_PINATA_API_KEY,
+                pinata_secret_api_key: process.env.NEXT_PUBLIC_PINATA_SECRET_API_KEY,
+                'Content-Type': 'application/json'
+            },
+        };
+
+        // Make the request to fetch files (CIDs)
+        const response = await axios(options);
+    }
 
     return (
         <div className={`flashcard ${flipped ? 'flipped' : ''}`} onClick={handleFlip}>
