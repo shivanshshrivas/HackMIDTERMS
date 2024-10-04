@@ -152,6 +152,7 @@ video {
   font-size: 1.3rem;
   position:absolute;
   padding: 5px 0;
+  pointer-events: none;
   transform: translateY(-55px);
   transition: all 0.2s ease-in-out;
 }
@@ -166,6 +167,7 @@ video {
   margin: 0 0 20px 0;
   border: 2px solid transparent;
   border-radius: 2px;
+  z-index: 10;
   border-bottom-color: black;
   transition: all 0.2s ease-in-out;
 }
