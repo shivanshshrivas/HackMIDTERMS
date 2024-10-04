@@ -24,7 +24,8 @@ export default function Page() {
     const [loading, setLoading] = useState(true);
     // State to manage the loading state of the user authentication check
     const [isUserLoading, setIsUserLoading] = useState(true);
-
+    // State to manage the logout process
+    const [logout, setLogout] = useState(false);
     // Initialize the Next.js router for redirection
     const router = useRouter();
 
@@ -99,8 +100,10 @@ export default function Page() {
                 fetchFiles(user);
             } else {
                 // No user is signed in
+                
                 setLoading(false);
                 setError('No user is signed in.');
+
             }
             // We have finished checking the auth state
             setIsUserLoading(false);
@@ -115,7 +118,7 @@ export default function Page() {
         try {
             // Sign the user out using Firebase auth
             setIsUserLoading(true);
-            await new Promise(resolve => setTimeout(resolve, 1000));
+            setLogout(true);
             await signOut(auth);
             setIsUserLoading(false);
             // Redirect the user to the home page
@@ -148,7 +151,7 @@ export default function Page() {
                 {isUserLoading && <Loading show={isUserLoading} />}
                 {loading && <Loading show={loading} />}
                 {loading && <p className="loading-message">Loading pinned questions...</p>}
-                {error && <p className="error-message">{error}</p>}
+                {!logout && error && <p className="error-message">{error}</p>}
                 {!loading && fileContents.length === 0 && <p className="no-data-message">No questions or answers found.</p>}
                 <ul className="flashcard-container">
                     {fileContents.map((file, index) => (
