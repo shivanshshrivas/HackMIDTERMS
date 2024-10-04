@@ -32,6 +32,8 @@ export default function Page() {
     // Initialize the Next.js router for redirection
     const router = useRouter();
 
+    let temp 
+
     // useEffect hook to handle fetching files when the component mounts
     useEffect(() => {
         // Function to fetch files from Pinata for the authenticated user

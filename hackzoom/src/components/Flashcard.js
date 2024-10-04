@@ -8,6 +8,7 @@ require('dotenv').config();
 
 export default function Flashcard(props) {
     const [flipped, setFlipped] = useState(false);
+    const router = useRouter();
 
     const handleFlip = () => {
         setFlipped(!flipped);
@@ -26,6 +27,7 @@ export default function Flashcard(props) {
 
         // Make the request to fetch files (CIDs)
         const response = await axios(options);
+        router.push('/dashboard');
     }
 
     return (
