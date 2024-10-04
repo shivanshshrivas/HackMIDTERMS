@@ -155,8 +155,11 @@ export default function Page() {
                     <h1 className="dashboard-title">Your Dashboard</h1>
                     
                     <div className="home-button-container" >
-                        <PageButton className="logout-button" label="Logout" handleClick={handleLogout} />
                         <PageButton className="home-button" label="Home" handleClick = {(e) => handleHome(e)} />
+                        <PageButton className="add-button" label="Upload Video" handleClick = {() => router.push('/upload')} />
+                        <PageButton className="logout-button" label="Logout" handleClick={handleLogout} />
+                        
+                            
                     </div>
                 </div>
                 

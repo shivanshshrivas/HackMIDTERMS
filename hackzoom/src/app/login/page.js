@@ -11,6 +11,10 @@ import Loading from '@/components/Loading';
 
 require('dotenv').config();
 
+function delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+  
 
 const pinata_api_key = process.env.NEXT_PUBLIC_PINATA_API_KEY;
 const pinata_secret_api_key = process.env.NEXT_PUBLIC_PINATA_SECRET_API_KEY;
@@ -163,14 +167,15 @@ export default function Login() {
             body.style.backdropFilter = 'blur(20px)'; // Add backdrop filter for a blur effect
             body.style.opacity = '0';
             body.style.transform = 'translateY(40px)'; // Add a transition effect for the body
-            new Promise(resolve => setTimeout(resolve, 300)).then(() => {
+            delay(600);
               router.push('/');
+              delay(600);
               body.style.backgroundColor = ''; // Reset background color after navigation
               body.style.backdropFilter = ''; // Reset backdrop filter after navigation
               body.style.color = ''; // Reset text color after navigation
               body.style.transform = ''; // Reset transform after navigation
               body.style.opacity = '1'; // Reset opacity after navigation
-            });
+
     };
     // Show a loading screen while checking for authentication state
     if (loading) {
