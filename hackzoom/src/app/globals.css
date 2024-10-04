@@ -321,7 +321,7 @@ video {
 .flashcard {
   perspective: 1000px;
   width: 100%;
-  max-width: 400px;
+  max-width: 350px;
   height: auto;
   aspect-ratio: 3 / 2; /* Maintain a 3:2 aspect ratio */
   margin: 20px;
@@ -354,7 +354,7 @@ video {
   font-size: 1.5rem;
   color: white;
   background-color: tomato;
-  padding: 10px;
+  padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
 }

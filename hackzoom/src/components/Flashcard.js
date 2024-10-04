@@ -19,7 +19,9 @@ export default function Flashcard(props) {
                     {props.question}
                 </div>
                 <div className="flashcard-back">
-                    <b>Answer: </b>{props.answer}
+                    <b>Answer: </b>
+                    <br />
+                    {props.answer}
                 </div>
             </div>
         </div>
