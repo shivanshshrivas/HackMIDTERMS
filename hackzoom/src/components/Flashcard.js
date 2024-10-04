@@ -17,6 +17,9 @@ export default function Flashcard(props) {
                     <b>Question: </b>
                     <br />
                     {props.question}
+                    <div className = 'page-button' style={{'zIndex':'99'}}>
+                    <button onClick={()=> {console.log('clicked delete')}}>Delete</button>
+                </div>
                 </div>
                 <div className="flashcard-back">
                     <b>Answer: </b>
