@@ -24,13 +24,13 @@ def capture_audio():
 
     selected_source = None
     for index, name in enumerate(sr.Microphone.list_microphone_names()):
-        if 'stereo_mix' in name.lower():
+        if 'stereo mix' in name.lower():
             selected_source = sr.Microphone(device_index=index, sample_rate=16000)
             print(f"Selected source: {name}")
             break
     
     if selected_source is None:
-        print("No stereo mix found")
+        print("No Stereo mix found")
         return
     
     with selected_source as source:
