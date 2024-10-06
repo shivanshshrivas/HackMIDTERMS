@@ -53,6 +53,7 @@ def capture_audio():
 
             with lock:
                 transcriptions.append(text)
+                print(text)
         sleep(0.25)
 
 @app.route('/transcriptions', methods=['GET'])
