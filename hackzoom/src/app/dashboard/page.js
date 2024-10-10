@@ -20,10 +20,6 @@ import Loading from '@/components/Loading';
 
 // Ensure environment variables are accessible (Remove require('dotenv').config())
 export default function Page() {
-    const pinataData = {
-        pinata_api_key: process.env.NEXT_PUBLIC_PINATA_API_KEY,
-        pinata_secret_api_key: process.env.NEXT_PUBLIC_PINATA_SECRET_API_KEY
-    };
 
     // State to store the file contents fetched from Pinata
     const [fileContents, setFileContents] = useState([]);
@@ -58,8 +54,8 @@ export default function Page() {
                     method: 'GET',
                     url: `https://api.pinata.cloud/data/pinList?groupId=${groupId}&status=pinned`,
                     headers: {
-                        pinata_api_key: pinataData.pinata_api_key,
-                        pinata_secret_api_key: pinataData.pinata_secret_api_key,
+                        pinata_api_key: process.env.NEXT_PUBLIC_PINATA_API_KEY,
+                        pinata_secret_api_key: process.env.NEXT_PUBLIC_PINATA_SECRET_API_KEY,
                         'Content-Type': 'application/json',
                         'Content-Cache': 'no-cache'
                     },
