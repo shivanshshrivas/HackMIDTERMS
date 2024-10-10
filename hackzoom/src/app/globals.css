@@ -324,7 +324,7 @@ video {
   perspective: 1000px;
   width: 100%;
   max-width: 350px;
-  height: auto;
+  max-height: 500px;
   aspect-ratio: 3 / 2; /* Maintain a 3:2 aspect ratio */
   margin: 20px;
   cursor: pointer;
@@ -372,6 +372,38 @@ video {
   flex-wrap: wrap;
   justify-content: center;
 }
+
+.videoplayer-container {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-self: center;
+}
+
+.videoplayer {
+  width: 80%;
+}
+
+.videoplayer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+
+.video-container {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
+video {
+  width: 600px;
+  height: auto;
+}
+
+
 
 
 @keyframes border-animation {

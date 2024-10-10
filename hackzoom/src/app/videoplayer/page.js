@@ -12,7 +12,7 @@ const pinata_api_key = process.env.NEXT_PUBLIC_PINATA_API_KEY;
 const pinata_secret_api_key = process.env.NEXT_PUBLIC_PINATA_SECRET_API_KEY;
 
 export default function VideoPlayer() {
-    const [quizCard, setQuizCard] = useState([]);
+    const [quizCard, setQuizCard] = useState(null);
     const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
     const router = useRouter();
@@ -119,22 +119,26 @@ export default function VideoPlayer() {
     };
 
     return(
-        <div>
-            <div>
+        <div className='videoplayer-container'>
+            <div className='videoplayer'>
                 <div>
-                    <h1>Video Player</h1>
-                    <div>
+                    <div className='videoplayer-header'>
+                        <h1>Video Player</h1>
+                        <PageButton label="Dashboard" handleClick={() => router.push('/dashboard')} />
+                    </div>
+                    <div className='video-container'>
                         <div>
-                            <video>
+                            <video controls>
                                 <source src="/rename.mp4" type="video/mp4" />
                             </video>
+                            <div className='page-button'>
                             <button
                             onClick={handleGenerateQuiz}
                             disabled={isButtonDisabled}
                             >
                                 {isButtonDisabled ? 'Generating Quiz...' : 'Generate Quiz'}
                             </button>
-                            <PageButton label="Dashboard" onClick={() => router.push('/dashboard')} />
+                            </div>
                         </div>
                         {quizCard && (
                             <Flashcard
