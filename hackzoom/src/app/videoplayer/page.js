@@ -139,7 +139,9 @@ export default function VideoPlayer() {
                         {quizCard && (
                             <Flashcard
                             question={quizCard.question}
-                            answer={quizCard.answer}/>
+                            answer={quizCard.answer}
+                            isNew={true}
+                            />
                         )}
                     </div>
                 </div>

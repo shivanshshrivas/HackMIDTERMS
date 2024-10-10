@@ -38,7 +38,7 @@ export default function Flashcard(props) {
                     <br />
                     {props.question}
                     <div className = 'page-button' style={{'zIndex':'99'}}>
-                    <button onClick={() => handleDelete(props.cid)}>Delete</button>
+                    {!props.isNew && <button onClick={() => handleDelete(props.cid)}>Delete</button>}
                 </div>
                 </div>
                 <div className="flashcard-back">
