@@ -155,7 +155,7 @@ export default function Page() {
                 {!loading && fileContents.length === 0 && <p className="no-data-message">No questions or answers found.</p>}
                 <ul className="flashcard-container">
                     {fileContents.map((file, index) => (
-                        <Flashcard key={index} question={file.question} answer={file.answer} cid={file.cid} />
+                        <Flashcard key={index} question={file.question} answer={file.answer} cid={file.cid} isNew={false} />
                     ))}
                 </ul>
             </div>
