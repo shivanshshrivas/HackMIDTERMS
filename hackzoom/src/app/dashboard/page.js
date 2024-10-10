@@ -34,6 +34,31 @@ export default function Page() {
     // Initialize the Next.js router for redirection
     const router = useRouter();
 
+
+
+    const handleRoute = async (route, event) => {
+        event.preventDefault();
+        const body = document.querySelector('body');
+        body.style.color = 'white'; // Change text color to desired color
+        body.style.backdropFilter = 'blur(20px)'; // Add backdrop filter for a blur effect
+        body.style.opacity = '0';
+        body.style.transform = 'translateY(40px)'; // Add a transition effect for the body
+    
+        // Wait for animation to complete before navigation
+        await new Promise(resolve => setTimeout(resolve, 400));
+    
+        // Navigate after the animation
+        router.push(route);
+    
+        // Reset styles after a delay (no events to catch route change completion)
+        setTimeout(() => {
+          body.style.backdropFilter = ''; // Reset backdrop filter after navigation
+          body.style.color = ''; // Reset text color after navigation
+          body.style.transform = ''; // Reset transform after navigation
+          body.style.opacity = '1'; // Reset opacity after navigation
+        }, 300);
+      };
+
     // useEffect hook to handle fetching files when the component mounts
     useEffect(() => {
         const fetchFiles = async (user) => {
@@ -119,15 +144,35 @@ export default function Page() {
     }, [router]); // Add `router` as a dependency to trigger when page changes
 
     // Function to handle user logout
-    const handleLogout = async () => {
+    const handleLogout = async (event) => {
         try {
             // Sign the user out using Firebase auth
             setIsUserLoading(true);
             setLogout(true);
             await signOut(auth);
             setIsUserLoading(false);
-            // Redirect the user to the home page
+            event.preventDefault();
+            const body = document.querySelector('body');
+            body.style.color = 'white'; // Change text color to desired color
+            body.style.backdropFilter = 'blur(20px)'; // Add backdrop filter for a blur effect
+            body.style.opacity = '0';
+            body.style.transform = 'translateY(40px)'; // Add a transition effect for the body
+        
+            // Wait for animation to complete before navigation
+            await new Promise(resolve => setTimeout(resolve, 400));
+        
+            // Navigate after the animation
             router.push('/');
+        
+            // Reset styles after a delay (no events to catch route change completion)
+            setTimeout(() => {
+            body.style.backdropFilter = ''; // Reset backdrop filter after navigation
+            body.style.color = ''; // Reset text color after navigation
+            body.style.transform = ''; // Reset transform after navigation
+            body.style.opacity = '1'; // Reset opacity after navigation
+            }, 300);
+            // Redirect the user to the home page
+            // router.push('/');
         } catch (error) {
             console.error('Error during sign out:', error);
             // If there's an error during sign out, set an error message
@@ -135,10 +180,6 @@ export default function Page() {
         }
     };
 
-    const handleHome = (e) => {
-        e.preventDefault();
-        router.push('/');
-    };
 
     return (
         <div className="dashboard-container">
@@ -147,9 +188,9 @@ export default function Page() {
                     <h1 className="page-title">Your Dashboard</h1>
 
                     <div className="home-button-container">
-                        <PageButton className="home-button" label="Home" handleClick={(e) => handleHome(e)} />
-                        <PageButton className="add-button" label="Upload Video" handleClick={() => router.push('/videoplayer')} />
-                        <PageButton className="logout-button" label="Logout" handleClick={handleLogout} />
+                        <PageButton className="home-button" label="Home" handleClick={(e) => handleRoute('/',e)} />
+                        <PageButton className="add-button" label="Upload Video" handleClick={(e) => handleRoute('/videoplayer',e)} />
+                        <PageButton className="logout-button" label="Logout" handleClick={(e) => handleLogout(e)} />
                     </div>
                 </div>
 

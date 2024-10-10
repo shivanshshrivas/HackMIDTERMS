@@ -16,7 +16,28 @@ export default function VideoPlayer() {
     const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
     const router = useRouter();
-
+    const handleRoute = async (route, event) => {
+        event.preventDefault();
+        const body = document.querySelector('body');
+        body.style.color = 'white'; // Change text color to desired color
+        body.style.backdropFilter = 'blur(20px)'; // Add backdrop filter for a blur effect
+        body.style.opacity = '0';
+        body.style.transform = 'translateY(40px)'; // Add a transition effect for the body
+    
+        // Wait for animation to complete before navigation
+        await new Promise(resolve => setTimeout(resolve, 400));
+    
+        // Navigate after the animation
+        router.push(route);
+    
+        // Reset styles after a delay (no events to catch route change completion)
+        setTimeout(() => {
+          body.style.backdropFilter = ''; // Reset backdrop filter after navigation
+          body.style.color = ''; // Reset text color after navigation
+          body.style.transform = ''; // Reset transform after navigation
+          body.style.opacity = '1'; // Reset opacity after navigation
+        }, 300);
+      };
     const genereateQuizCard = (result)=> {
         if (result.type === 'flash'){
             return {
@@ -136,7 +157,7 @@ export default function VideoPlayer() {
                     <div className='page-header'>
                         <h1 className='page-title'>Video Player</h1>
                         <div className="home-button-container">
-                        <PageButton label="Dashboard" handleClick={() => router.push('/dashboard')} />
+                        <PageButton label="Dashboard" handleClick={(e) => handleRoute('/dashboard', e)} />
                             </div>
                     </div>
                     <div className='video-container'>
