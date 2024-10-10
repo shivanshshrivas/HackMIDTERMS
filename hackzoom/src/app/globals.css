@@ -320,7 +320,7 @@ video {
   padding: 0;
 }
 
-.flashcard {
+.flashcard, .flashcard-deleted {
   perspective: 1000px;
   width: 100%;
   max-width: 350px;
@@ -329,6 +329,11 @@ video {
   margin: 20px;
   cursor: pointer;
   transition: background-color 0.2s ease;
+}
+
+.flashcard-deleted .flashcard-front {
+  background-color: red;
+  pointer-events: none;
 }
 
 .flashcard-inner {
@@ -398,9 +403,10 @@ video {
   justify-content: center;
 }
 
-video {
+.uploaded-video {
   width: 600px;
   height: auto;
+  margin: 10px 5px;
 }
 
 

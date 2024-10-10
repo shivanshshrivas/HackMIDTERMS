@@ -139,7 +139,7 @@ export default function VideoPlayer() {
                     </div>
                     <div className='video-container'>
                         <div>
-                            <video controls>
+                            <video className='uploaded-video' controls>
                                 <source src="/rename.mp4" type="video/mp4" />
                             </video>
                             <div className='page-button'>

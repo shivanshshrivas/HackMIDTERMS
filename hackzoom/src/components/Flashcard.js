@@ -13,7 +13,7 @@ export default function Flashcard(props) {
     const handleFlip = () => {
         setFlipped(!flipped);
     };
-
+    const [deleted, setDeleted] = useState(false);
     const handleDelete = async (cid) => {
         const options = {
             method: 'DELETE',
@@ -24,21 +24,26 @@ export default function Flashcard(props) {
                 'Content-Type': 'application/json'
             },
         };
-
-        // Make the request to fetch files (CIDs)
-        const response = await axios(options);
-        router.push('/dashboard');
-    }
+    
+        try {
+            const response = await axios(options);
+            setDeleted(true);
+        }
+        catch (error) {
+            console.error("Error deleting flashcard:", error);
+        }
+    };
+    
 
     return (
-        <div className={`flashcard ${flipped ? 'flipped' : ''}`} onClick={handleFlip}>
+        <div className={deleted ? 'flashcard-deleted' : `flashcard ${flipped ? 'flipped' : ''}`} onClick={handleFlip}>
             <div className="flashcard-inner">
                 <div className="flashcard-front">
                     <b>Question: </b>
                     <br />
                     {props.question}
                     <div className = 'page-button' style={{'zIndex':'99'}}>
-                    {!props.isNew && <button onClick={() => handleDelete(props.cid)}>Delete</button>}
+                    {!props.isNew && <button style = {{'backgroundColor': deleted ? 'red': ''}}onClick={(e) => { e.stopPropagation(); handleDelete(props.cid); }}>{deleted ? 'Deleted' :'Delete'}</button>}
                 </div>
                 </div>
                 <div className="flashcard-back">
