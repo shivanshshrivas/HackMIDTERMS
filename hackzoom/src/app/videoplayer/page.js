@@ -12,7 +12,7 @@ const pinata_api_key = process.env.NEXT_PUBLIC_PINATA_API_KEY;
 const pinata_secret_api_key = process.env.NEXT_PUBLIC_PINATA_SECRET_API_KEY;
 
 export default function VideoPlayer() {
-    const [quizCard, setQuizCard] = useState([]);
+    const [quizCard, setQuizCard] = useState(null);
     const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
     const router = useRouter();
@@ -31,6 +31,12 @@ export default function VideoPlayer() {
                 options: [ result.option1, result.option2, result.option3, result.option4],
                 answer: result.answer,
             };
+        } else if (result.type === 'error'){
+            return{
+                type: 'error',
+                question: 'Error generating quiz card.',
+                answer: 'Unknown',
+            }
         }
         return null;
     };
@@ -54,8 +60,9 @@ export default function VideoPlayer() {
 
             const quizCard = genereateQuizCard(result);
             setQuizCard(quizCard);
-
+            
             return result;
+
         } catch (error) {
             console.error('Error fetching transcript:', error);
             throw error;
@@ -82,31 +89,35 @@ export default function VideoPlayer() {
                 throw new Error('No group ID found for user.');
             }
 
-            const pinResponse = await axios.post('https://api.pinata.cloud/pinning/pinJSONToIPFS', {
-                pinataOptions: { cidVersion: 1},
-                pinataMetadata: { name: `question-answer-${groupId}`},
-                pinataContent: { type, question, answer},
-            },{
-                headers: {
-                    pinata_api_key,
-                    pinata_secret_api_key,
-                    'Content-Type': 'application/json',
-                },
-            });
+            if (type !== 'error'){
+                const pinResponse = await axios.post('https://api.pinata.cloud/pinning/pinJSONToIPFS', {
+                    pinataOptions: { cidVersion: 1},
+                    pinataMetadata: { name: `question-answer-${groupId}`},
+                    pinataContent: { type, question, answer},
+                },{
+                    headers: {
+                        pinata_api_key,
+                        pinata_secret_api_key,
+                        'Content-Type': 'application/json',
+                    },
+                });
+    
+                const cid = pinResponse.data.IpfsHash;
+                console.log('Pinned question-answer:', cid);
+    
+                await axios.put(`https://api.pinata.cloud/groups/${groupId}/cids`, {
+                    cids: [cid],
+                },{
+                    headers: {
+                        pinata_api_key,
+                        pinata_secret_api_key,
+                        'Content-Type': 'application/json',
+                    }
+                });
+                console.log('Added CID to group:', groupId);
+            }
 
-            const cid = pinResponse.data.IpfsHash;
-            console.log('Pinned question-answer:', cid);
-
-            await axios.put(`https://api.pinata.cloud/groups/${groupId}/cids`, {
-                cids: [cid],
-            },{
-                headers: {
-                    pinata_api_key,
-                    pinata_secret_api_key,
-                    'Content-Type': 'application/json',
-                }
-            });
-            console.log('Added CID to group:', groupId);
+            
         } catch (error){
             console.error('Error generating quiz:', error);
         }

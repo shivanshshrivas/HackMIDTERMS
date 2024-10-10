@@ -25,6 +25,10 @@ export async function POST(req){
             return NextResponse.json({error: "Invalid question type."}, {status: 400});
         }
 
+        if (text.length < 10){
+            return NextResponse.json({type: "error"}, {status: 400});
+        }
+
         const completion = await openai.chat.completions.create({
             model: 'gpt-4-turbo', // Use the turbo model for efficiency
             messages: [
@@ -70,7 +74,7 @@ export async function POST(req){
         return NextResponse.json(jsonOutput);
     } catch (error){
         console.error('Error generating quiz card:', error);
-        return NextResponse.json({error: 'Error generating quiz card.'}, {status: 500});0
+        return NextResponse.json({error: 'Error generating quiz card.'}, {status: 500});
     } finally{
         console.log("Quiz Card Generated.");
     }
