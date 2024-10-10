@@ -9,6 +9,15 @@ import PageButton from '@/components/PageButton';
 import Flashcard from '@/components/Flashcard';
 import Loading from '@/components/Loading';
 
+
+
+
+
+
+
+
+
+
 // Ensure environment variables are accessible (Remove require('dotenv').config())
 export default function Page() {
     const pinataData = {
