@@ -35,7 +35,7 @@ export default function VideoPlayer() {
         return null;
     };
 
-    const fetchTranscript = async () => {
+    const fetchTranscriptions = async () => {
         try {
             const response = await axios.get('http://localhost:5000/transcriptions');
             const transcriptionsList = response.data.transcriptions;
@@ -46,7 +46,7 @@ export default function VideoPlayer() {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({transcription: concatenatedTranscriptions, questionType: '1'}),
+                body: JSON.stringify({text: concatenatedTranscriptions, questionType: '1'}),
             });
 
             const result = await res.json();
@@ -129,7 +129,7 @@ export default function VideoPlayer() {
                                 <source src="/rename.mp4" type="video/mp4" />
                             </video>
                             <button
-                            onclick={handleGenerateQuiz}
+                            onClick={handleGenerateQuiz}
                             disabled={isButtonDisabled}
                             >
                                 {isButtonDisabled ? 'Generating Quiz...' : 'Generate Quiz'}

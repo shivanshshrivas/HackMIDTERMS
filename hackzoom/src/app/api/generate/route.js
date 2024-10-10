@@ -25,7 +25,16 @@ export async function POST(req){
             return NextResponse.json({error: "Invalid question type."}, {status: 400});
         }
 
+        const completion = await openai.chat.completions.create({
+            model: 'gpt-4-turbo', // Use the turbo model for efficiency
+            messages: [
+              { role: 'system', content: systemMessage },
+              { role: 'user', content: text}
+            ]
+          });
+
         const generatedContent = completion.choices[0].message.content.trim();
+        console.log("Completion: ", completion);
         console.log("Generated Content: ", generatedContent);
 
         if (questionType === '1'){
@@ -40,7 +49,7 @@ export async function POST(req){
                 question: questionWords,
                 answer: answerWords,
             };
-        } else if (quesstionType === '2'){
+        } else if (questionType === '2'){
             const lines = generatedContent.split('\n').filter(line => line.trim() !== '' );
             const questionWords = lines[0].split(' ').slice(0,14).join(' ');
             const options = lines.slice(1,5);
