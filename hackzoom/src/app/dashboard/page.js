@@ -143,8 +143,8 @@ export default function Page() {
     return (
         <div className="dashboard-container">
             <div className="dashboard">
-                <div className='dashboard-header'>
-                    <h1 className="dashboard-title">Your Dashboard</h1>
+                <div className='page-header'>
+                    <h1 className="page-title">Your Dashboard</h1>
 
                     <div className="home-button-container">
                         <PageButton className="home-button" label="Home" handleClick={(e) => handleHome(e)} />

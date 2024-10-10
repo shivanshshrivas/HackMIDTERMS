@@ -133,9 +133,11 @@ export default function VideoPlayer() {
         <div className='videoplayer-container'>
             <div className='videoplayer'>
                 <div>
-                    <div className='videoplayer-header'>
-                        <h1>Video Player</h1>
+                    <div className='page-header'>
+                        <h1 className='page-title'>Video Player</h1>
+                        <div className="home-button-container">
                         <PageButton label="Dashboard" handleClick={() => router.push('/dashboard')} />
+                            </div>
                     </div>
                     <div className='video-container'>
                         <div>
