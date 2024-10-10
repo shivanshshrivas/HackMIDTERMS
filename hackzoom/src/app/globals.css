@@ -1,3 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -8,23 +12,63 @@
   --primary-animation-color: black;
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
   }
-}
+} */
 
 body {
+  /* overflow: hidden; */
   color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  min-width: 640px; /* Set a minimum resize width */
+  /* background: var(--background); */
+  background-color: #87ceeb; /* LightSkyBlue */
+  transition: all 0.6s ease;
+
 }
+
+.page-transition {
+  opacity: 0;
+  transform: translateY(20px);
+  background-color: #87ceeb; /* LightSkyBlue */
+  backdrop-filter: blur(10px);
+}
+
+
+
+h1 {
+  font-family: 'Playfair Display';
+  font-weight: 500;
+  font-size: 3rem;
+  margin-bottom: 5px;
+}
+
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+.homepage {
+  margin-top: 5%;
+  width: 85%;
+}
+
+
+
+.home-button-container {
+  display: flex;
+  margin-left: auto;
+  flex-wrap: wrap;
+  justify-content: right;
+  gap: 2px;
+  padding: 10px;
 }
 
 .page-button button {
@@ -40,98 +84,348 @@ body {
   box-shadow: none;
   background-color: #848eeb;
   cursor: pointer;
-  margin: 5px 0;
+  margin: 5px;
   transition: all 0.2s ease;
 }
 
 .page-button button:hover {
-  background-color: #6c74d8;
+  background-color: #00008b;
 }
 
-
-.login {
+.login-signup-container {
   display: flex;
-  width: fit-content; /* Changed to fill the width of the page */
+  justify-content: center;
+  align-items: center;
+  /* height: 100vh; */
+  width: 100%;
+}
+
+.login-signup {
+  width: 85%;
+}
+
+.login, .signup {
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
   margin: 0 auto;
-  padding: 50px;
+  padding: 10px;
+  margin: 0 0 10% 0;
+  transition: all 0.5s ease;
+}
+
+video {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
 }
 
 .login-left-pane {
   background-color: aquamarine;
   width: 50%;
-  padding: 0 50px;
-  border: 3cap solid transparent;
-  animation: border-animation 2s infinite;
+
 }
 
 .login-right-pane {
+  display: flex;
+  align-items:center;
+  justify-content: center;
+  background-color: white;
   width: 50%;
   padding: 0 50px;
 }
 
-.login h1 {
+.login h1, .signup h1 {
   font-family: 'Playfair Display';
+  font-weight: 500;
   font-size: 3rem;
+  margin-bottom: 5px;
 }
 
-.login form {
+.login form, .signup form {
   display: block;
 }
 
-.login label {
+.username-label, .password-label, .signup-username-label, .signup-password-label, .signup-email-label, .signup-confirm-password-label {
   font-family: 'Inter Tight';
+  color: grey;
   font-size: 1.3rem;
   position:absolute;
   padding: 5px 0;
+  pointer-events: none;
   transform: translateY(-55px);
   transition: all 0.2s ease-in-out;
 }
 
-.login input {
+.login input, .signup input {
+  background-color: transparent;
   display: block;
   font-family: 'Inter Tight';
   font-size: large;
-  width: 300px;
+  width: 100%;
   padding:0 0 5px 0;
   margin: 0 0 20px 0;
   border: 2px solid transparent;
   border-radius: 2px;
+  z-index: 10;
   border-bottom-color: black;
   transition: all 0.2s ease-in-out;
 }
 
-.login input:focus {
-  border-collapse: none;
-  border-bottom-color: #1e90ff;
+.login input:focus, .signup input:focus {
+  border-bottom-color: #6c74d8; /* DarkBlue */
   outline: none; /* Added to remove the default blue border */
 }
 
-.username-input:focus + .username-label, .password-input:focus + .password-label, .label-focus{
-  transform: translateY(-70px);
-  color: #1e90ff; /* DodgerBlue */
+.loading {
+  top: 48.5%;
+  left: 48.5%;
+  position: absolute;
+  margin:0 auto;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  border: 5px solid transparent;
+  z-index: 999;
+  /* border-top-color: #6c74d8; DodgerBlue */
+  border-bottom-color:black; /* Magenta */
+  border-top-color: black; /* Magenta */
+  border-left-color: black; /* Magenta */
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0%{
+      transform: rotate(0deg);
+  }
+
+  100%{
+      transform: rotate(360deg); 
+  }
+}
+
+.username-input:focus + .username-label, .password-input:focus + .password-label, .signup-username-input:focus + .signup-username-label, .signup-password-input:focus + .signup-password-label, .signup-email-input:focus + .signup-email-label, .signup-confirm-password-input:focus + .signup-confirm-password-label {
+  
+  transform: translateY(-75px);
+  color: #6c74d8; /* DodgerBlue */
   font-size: 1rem;
 }
 
-.login button {
-  font-size: 15px;
-  height: 40px;
+.username-label-focus, .password-label-focus, .signup-username-label-focus, .signup-password-label-focus, .signup-email-label-focus, .signup-confirm-password-label-focus {
+  
+  font-family: 'Inter Tight';
+  font-size: 1.3rem;
+  position:absolute;
+  padding: 5px 0;
+  transform: translateY(-75px);
+  color: #6c74d8; /* DodgerBlue */
+  font-size: 1rem;
+}
+
+
+.login button, .signup button {
+  font-size: 1.5rem;
+  height: auto;
   width: 100%;
 }
+
+.login-button-container {
+  width: 100%;
+  display: flex;
+  justify-content: end;
+  gap: 10px; /* Adjust the value as needed for desired spacing */
+}
+
+.login-home-button-container {
+  display: flex;
+  justify-content: right;
+  align-items: last baseline;
+}
+
+.login-home-button-container button {
+  background-color: red;
+}
+
+.login-home-button-container button:hover {
+  background-color: darkred;
+}
+
+.dashboard-container {
+  display: flex;
+  justify-content: center;
+  align-items: first baseline;
+  width: 100%;
+}
+
+.dashboard {
+  width: 85%;
+
+}
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  /* align-items: center; */
+  margin-bottom: 20px;
+}
+.dashboard-title {
+  font-family: 'Playfair Display';
+  font-weight: 700;
+  font-size: 2.5rem;
+  color: var(--foreground);
+  margin-bottom: 10px;
+  padding: 10px;
+}
+
+.dashboard-subtitle {
+  font-family: 'Inter Tight';
+  font-weight: 400;
+  font-size: 1.5rem;
+  color: grey;
+  /* margin-bottom: 20px; */
+  padding: 10px;
+}
+
+.dashboard-button-container {
+  display: flex;
+  justify-content: end;
+  gap: 10px; /* Adjust the value as needed for desired spacing */
+}
+
+
+.loading-message {
+  width: 100%;
+  text-align: center;
+  font-family: 'Inter Tight';
+  font-size: 3rem;
+  color: #6c74d8; /* DodgerBlue */
+  margin-bottom: 20px;
+}
+
+.error-message {
+  font-family: 'Inter Tight';
+  font-size: 1.2rem;
+  color: red;
+  margin-bottom: 20px;
+}
+
+.no-data-message {
+  font-family: 'Inter Tight';
+  font-size: 1.2rem;
+  color: grey;
+  margin-bottom: 5px;
+}
+
+.file-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.flashcard, .flashcard-deleted {
+  perspective: 1000px;
+  width: 100%;
+  max-width: 350px;
+  max-height: 500px;
+  aspect-ratio: 3 / 2; /* Maintain a 3:2 aspect ratio */
+  margin: 20px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.flashcard-deleted .flashcard-front {
+  background-color: red;
+  pointer-events: none;
+}
+
+.flashcard-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: left;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+
+.flashcard.flipped .flashcard-inner {
+  transform: rotateY(180deg);
+}
+
+.flashcard-front, .flashcard-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  /* display: flex; */
+  align-items: first baseline;
+  justify-content: left;
+  font-family: 'Inter Tight';
+  font-size: 1.5rem;
+  color: white;
+  background-color: tomato;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+.flashcard-back {
+  transform: rotateY(180deg);
+  background-color: #2e8b57; /* SeaGreen */
+}
+
+.flashcard-container {
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.videoplayer-container {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-self: center;
+}
+
+.videoplayer {
+  width: 80%;
+}
+
+.videoplayer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+
+.video-container {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
+.uploaded-video {
+  width: 600px;
+  height: auto;
+  margin: 10px 5px;
+}
+
+
 
 
 @keyframes border-animation {
   0% {
-      /* border-color: transparent; */
-      border-bottom-color: var(--primary-animation-color);
+    border-bottom-color: var(--primary-animation-color);
   }
-  33% {
-      border-left-color: var(--primary-animation-color);
+  25% {
+    border-left-color: var(--primary-animation-color);
   }
-
-  67% {
-      border-top-color: var(--primary-animation-color);
+  50% {
+    border-top-color: var(--primary-animation-color);
+  }
+  75% {
+    border-right-color: var(--primary-animation-color);
   }
   100% {
-      border-right-color: var(--primary-animation-color);
+    border-bottom-color: var(--primary-animation-color);
   }
 }
